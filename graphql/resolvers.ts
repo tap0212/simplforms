@@ -1,10 +1,7 @@
-import prisma from 'lib/prisma';
+import { Context } from './context';
 
 export const resolvers = {
   Query: {
-    users: async props => {
-      console.log({ props });
-      return prisma.user.findMany();
-    },
+    users: async (_parent, _args, ctx: Context) => ctx.prisma.user.findMany(),
   },
 };

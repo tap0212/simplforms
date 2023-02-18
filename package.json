@@ -5,7 +5,7 @@
   "scripts": {
     "start": "next start",
     "lint": "next lint",
-    "dev": "concurrently \"next dev --turbo\" \"tailwind --watch\"",
+    "dev": "concurrently \"next dev \" \"tailwind --watch\"",
     "build": "tailwind && next build",
     "tailwind": "tailwindcss --input tailwind.css --output app/globals.css",
     "start:prisma-studio": "npx prisma studio",
@@ -26,6 +26,7 @@
     }
   },
   "dependencies": {
+    "@apollo/client": "^3.7.8",
     "@next/font": "13.1.6",
     "@prisma/client": "4.10.1",
     "@types/node": "18.13.0",

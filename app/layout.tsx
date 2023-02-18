@@ -1,6 +1,8 @@
 import Header from 'components/Header';
 import './globals.css';
 
+import { ApolloProvider } from './ApolloProvider';
+
 export default function RootLayout({
   children,
 }: {
@@ -14,8 +16,10 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <Header />
-        {children}
+        <ApolloProvider>
+          <Header />
+          {children}
+        </ApolloProvider>
       </body>
     </html>
   );
