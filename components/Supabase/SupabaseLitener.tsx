@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
+// eslint-disable-next-line import/no-cycle
 import { useSupabase } from './SupabaseProvider';
 
 // this component handles refreshing server data when the user logs in or out
@@ -20,16 +21,14 @@ export default function SupabaseListener({
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(
-      (_event: unknown, session: { access_token: string | undefined }) => {
-        if (session?.access_token !== serverAccessToken) {
-          // server and client are out of sync
-          // reload the page to fetch fresh server data
-          // https://beta.nextjs.org/docs/data-fetching/mutating
-          router.refresh();
-        }
-      },
-    );
+    } = supabase.auth.onAuthStateChange((_event: unknown, session: any) => {
+      if (session?.access_token !== serverAccessToken) {
+        // server and client are out of sync
+        // reload the page to fetch fresh server data
+        // https://beta.nextjs.org/docs/data-fetching/mutating
+        router.refresh();
+      }
+    });
 
     return () => {
       subscription.unsubscribe();

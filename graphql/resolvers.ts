@@ -2,6 +2,7 @@ import { Context } from './context';
 
 export const resolvers = {
   Query: {
-    users: async (_parent, _args, ctx: Context) => ctx.prisma.user.findMany(),
+    users: async (_parent: any, _args: unknown, ctx: Context) =>
+      ctx.prisma.user.findMany(),
   },
 };

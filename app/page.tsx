@@ -1,15 +1,19 @@
 'use client';
 
-import { useQuery } from '@apollo/client';
 import FilledButton from 'components/Buttons/Filled';
+import { useSupabase } from 'components/Supabase/SupabaseProvider';
 
-import { getAllUsers } from './global.graphql';
+import Dashboard from './dashboard/dashboard';
 
 /* eslint-disable react/no-unknown-property */
 export default function Home() {
-  const { data, loading, error } = useQuery(getAllUsers);
-  console.log({ data, loading, error });
-
+  const { session } = useSupabase();
+  /**
+   * If user is logged in render dashboard
+   */
+  if (session) {
+    return <Dashboard />;
+  }
   return (
     <main className="flex items-center justify-center">
       <div className="flex flex-col gap-8 items-center justify-center w-full container-main p-4 laptop:p-0 tablet:w-4/5 laptop:w-3/4 desktop:w-2/4">

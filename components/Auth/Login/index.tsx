@@ -11,12 +11,12 @@ export default function Authentication() {
   const { supabase, session } = useSupabase();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.log({ error });
-    }
-  };
+  // const handleLogout = async () => {
+  //   const { error } = await supabase.auth.signOut();
+  //   if (error) {
+  //     console.log({ error });
+  //   }
+  // };
 
   const handleOnClickLogin = () => {
     setModalOpen(true);
@@ -42,5 +42,9 @@ export default function Authentication() {
         </Modal>
       </>
     );
-  return <FilledButton onClick={handleLogout}>Sign Out</FilledButton>;
+  return (
+    <div className="bg-pink w-10 h-10 flex items-center justify-center cursor-pointer font-bold text-lg rounded-full">
+      {session.user.email?.slice(0, 1).toUpperCase()}
+    </div>
+  );
 }

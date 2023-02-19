@@ -6,7 +6,7 @@ import SupabaseProvider from 'components/Supabase/SupabaseProvider';
 import { Database } from 'prisma/db_types';
 import './globals.css';
 
-import { Provider } from './Provider';
+import { Provider } from '../components/Provider';
 import { createServerClient } from '../utils/supabase-server';
 
 export type TypedSupabaseClient = SupabaseClient<Database>;
