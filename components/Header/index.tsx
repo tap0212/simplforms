@@ -1,7 +1,8 @@
 'use client';
 
 import { SimplFormsLight } from 'assets';
-import FilledButton from 'components/Buttons/Filled';
+// eslint-disable-next-line import/no-cycle
+import Authentication from 'components/Auth/Login';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -16,12 +17,7 @@ const Header = () => (
         src={SimplFormsLight}
       />
     </Link>
-    <FilledButton
-      onClick={() => {
-        //
-      }}>
-      Sign Up
-    </FilledButton>
+    <Authentication />
   </div>
 );
 

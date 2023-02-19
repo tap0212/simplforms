@@ -1,12 +1,16 @@
 'use client';
 
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
+import { Auth, ThemeMinimal } from '@supabase/auth-ui-react';
+import { Modal } from 'antd';
+import FilledButton from 'components/Buttons/Filled';
 // eslint-disable-next-line import/no-cycle
 import { useSupabase } from 'components/Supabase/SupabaseProvider';
+import { useState } from 'react';
 
-// Supabase auth needs to be triggered client-side
-export default function Login() {
+export default function Authentication() {
   const { supabase, session } = useSupabase();
+  const [modalOpen, setModalOpen] = useState(false);
+
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
@@ -14,19 +18,29 @@ export default function Login() {
     }
   };
 
+  const handleOnClickLogin = () => {
+    setModalOpen(true);
+  };
+  const onClickCloseModal = () => {
+    setModalOpen(false);
+  };
   if (!session)
     return (
-      <Auth
-        redirectTo="http://localhost:3000/"
-        appearance={{ theme: ThemeSupa }}
-        supabaseClient={supabase}
-        socialLayout="horizontal"
-      />
+      <>
+        <FilledButton onClick={handleOnClickLogin}>Sign Up</FilledButton>
+        <Modal
+          centered
+          open={modalOpen}
+          footer={null}
+          onCancel={onClickCloseModal}>
+          <Auth
+            redirectTo="http://localhost:3000/"
+            supabaseClient={supabase}
+            socialLayout="horizontal"
+            appearance={{ theme: ThemeMinimal }}
+          />
+        </Modal>
+      </>
     );
-
-  return (
-    <>
-      <button onClick={handleLogout}>Sign out</button>
-    </>
-  );
+  return <FilledButton onClick={handleLogout}>Sign Out</FilledButton>;
 }
