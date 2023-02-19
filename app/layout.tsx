@@ -1,25 +1,41 @@
+import type { SupabaseClient } from '@supabase/auth-helpers-nextjs';
 import Header from 'components/Header';
+// eslint-disable-next-line import/no-cycle
+import SupabaseListener from 'components/Supabase/SupabaseLitener';
+import SupabaseProvider from 'components/Supabase/SupabaseProvider';
+import { Database } from 'prisma/db_types';
 import './globals.css';
 
-import { ApolloProvider } from './ApolloProvider';
+import { Provider } from './Provider';
+import { createServerClient } from '../utils/supabase-server';
 
-export default function RootLayout({
+export type TypedSupabaseClient = SupabaseClient<Database>;
+
+// do not cache this layout
+export const revalidate = 0;
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createServerClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   return (
     <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
       <head />
       <body>
-        <ApolloProvider>
-          <Header />
-          {children}
-        </ApolloProvider>
+        <Provider>
+          <SupabaseProvider session={session}>
+            <SupabaseListener serverAccessToken={session?.access_token} />
+            <Header />
+            {children}
+          </SupabaseProvider>
+        </Provider>
       </body>
     </html>
   );

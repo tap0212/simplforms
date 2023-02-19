@@ -9,7 +9,8 @@
     "build": "tailwind && next build",
     "tailwind": "tailwindcss --input tailwind.css --output app/globals.css",
     "start:prisma-studio": "npx prisma studio",
-    "seed:db": "npx prisma db seed"
+    "seed:db": "npx prisma db seed",
+    "db:migrate": "npx prisma migrate dev "
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
@@ -29,6 +30,10 @@
     "@apollo/client": "^3.7.8",
     "@next/font": "13.1.6",
     "@prisma/client": "4.10.1",
+    "@supabase/auth-helpers-nextjs": "^0.5.4",
+    "@supabase/auth-helpers-react": "^0.3.1",
+    "@supabase/auth-ui-react": "^0.2.8",
+    "@supabase/supabase-js": "^2.8.0",
     "@types/node": "18.13.0",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
