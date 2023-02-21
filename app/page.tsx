@@ -14,6 +14,7 @@ export default function Home() {
   if (session) {
     return <Dashboard />;
   }
+
   return (
     <main className="flex items-center justify-center">
       <div className="flex flex-col gap-8 items-center justify-center w-full container-main p-4 laptop:p-0 tablet:w-4/5 laptop:w-3/4 desktop:w-2/4">
